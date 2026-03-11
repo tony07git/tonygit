@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin | Plazoleta Kids</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="admin-body">
+    <main class="container admin-panel">
+      <section class="card" id="loginSection">
+        <h1>Login administrador</h1>
+        <form id="loginForm">
+          <label>Usuario
+            <input type="text" id="usuario" required />
+          </label>
+          <label>Contraseña
+            <input type="password" id="password" required />
+          </label>
+          <button class="btn-primary" type="submit">Ingresar</button>
+        </form>
+        <p class="status" id="loginStatus"></p>
+      </section>
+
+      <section class="card hidden" id="reservasSection">
+        <div class="admin-header">
+          <h2>Reservas registradas</h2>
+          <button id="logoutBtn" class="btn-secondary">Salir</button>
+        </div>
+        <div id="tablaReservas"></div>
+      </section>
+    </main>
+
+    <script src="admin.js"></script>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plazoleta Kids | Reservá tu salón</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <div class="overlay"></div>
+      <div class="hero-content container">
+        <h1>Reservá tu fecha soñada en Plazoleta Kids</h1>
+        <p>Eventos llenos de magia, color y diversión. Confirmá en minutos desde cualquier dispositivo.</p>
+        <a href="#reserva" class="btn-primary">Quiero reservar</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="info container">
+        <article class="card">
+          <h2>¿Cómo funciona?</h2>
+          <ul>
+            <li>Duración por reserva: <strong>3 horas</strong>.</li>
+            <li>Franja horaria: <strong>12:00 a 20:00</strong>.</li>
+            <li>Valor total: <strong>$180.000 ARS</strong>.</li>
+            <li>Seña para confirmar: <strong>$80.000 ARS</strong>.</li>
+            <li>Ubicación: <strong>Avenida Sarmiento 1389</strong>.</li>
+          </ul>
+        </article>
+
+        <article id="reserva" class="card form-card">
+          <h2>Reservá ahora</h2>
+          <form id="reservaForm">
+            <label>Nombre y apellido
+              <input type="text" id="nombre" required />
+            </label>
+            <label>Teléfono
+              <input type="tel" id="telefono" required />
+            </label>
+            <label>Fecha
+              <input type="date" id="fecha" required />
+            </label>
+            <label>Horario disponible
+              <select id="horaInicio" required>
+                <option value="">Seleccioná una fecha primero</option>
+              </select>
+            </label>
+            <label>Notas (opcional)
+              <textarea id="notas" rows="2" placeholder="Cumpleaños, temática, etc."></textarea>
+            </label>
+            <button type="submit" class="btn-primary">Confirmar reserva</button>
+          </form>
+          <p class="status" id="status"></p>
+        </article>
+      </section>
+    </main>
+
+    <footer>
+      <p>WhatsApp: <a href="https://wa.me/543814095236" target="_blank" rel="noreferrer">3814095236</a> · Administración: <a href="/admin">Ingresar</a></p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
