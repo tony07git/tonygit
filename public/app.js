@@ -11,24 +11,41 @@ function hourLabel(hour) {
 
 async function cargarHorarios() {
   const fecha = fechaInput.value;
-  if (!fecha) return;
+  if (!fecha) {
+    horaSelect.innerHTML = '<option value="">Seleccioná una fecha primero</option>';
+    return;
+  }
 
   horaSelect.innerHTML = '<option value="">Cargando horarios...</option>';
+  statusEl.textContent = '';
 
-  const resp = await fetch(`/api/slots?fecha=${fecha}`);
-  const data = await resp.json();
+  try {
+    const resp = await fetch(`/api/slots?fecha=${encodeURIComponent(fecha)}`);
+    const data = await resp.json();
 
-  horaSelect.innerHTML = '<option value="">Seleccioná un horario</option>';
-  data.slots.forEach((slot) => {
-    const option = document.createElement('option');
-    option.value = slot.hora;
-    option.disabled = !slot.disponible;
-    option.textContent = `${hourLabel(slot.hora)} ${slot.disponible ? '✅ disponible' : '❌ bloqueado'}`;
-    horaSelect.appendChild(option);
-  });
+    if (!resp.ok || !Array.isArray(data.slots)) {
+      throw new Error(data.error || 'No se pudieron cargar los horarios.');
+    }
+
+    horaSelect.innerHTML = '<option value="">Seleccioná un horario</option>';
+    data.slots.forEach((slot) => {
+      const option = document.createElement('option');
+      option.value = slot.hora;
+      option.disabled = !slot.disponible;
+      option.textContent = `${hourLabel(slot.hora)} ${slot.disponible ? '✅ disponible' : '❌ bloqueado'}`;
+      horaSelect.appendChild(option);
+    });
+  } catch (error) {
+    horaSelect.innerHTML = '<option value="">No se pudieron cargar horarios</option>';
+    statusEl.textContent = error.message || 'Error de red. Intentá nuevamente.';
+  }
 }
 
+const today = new Date().toISOString().split('T')[0];
+fechaInput.min = today;
+
 fechaInput.addEventListener('change', cargarHorarios);
+fechaInput.addEventListener('input', cargarHorarios);
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
