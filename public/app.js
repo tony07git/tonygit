@@ -13,6 +13,7 @@ async function cargarHorarios() {
   const fecha = fechaInput.value;
   if (!fecha) {
     horaSelect.innerHTML = '<option value="">Seleccioná una fecha primero</option>';
+    statusEl.textContent = '';
     return;
   }
 
