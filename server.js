@@ -65,12 +65,19 @@ function getAvailableStartHours() {
   return slots;
 }
 
+function getBusinessHours() {
+  const slots = [];
+  for (let h = OPEN_HOUR; h <= CLOSE_HOUR; h += 1) slots.push(h);
+  return slots;
+}
+
 function overlaps(aStart, aEnd, bStart, bEnd) {
   return aStart < bEnd && bStart < aEnd;
 }
 
 function isSlotAvailable(reservas, fecha, horaInicio) {
   const start = Number(horaInicio);
+  if (!getAvailableStartHours().includes(start)) return false;
   const end = start + DURATION_HOURS;
   return !reservas.some((r) => {
     if (r.fecha !== fecha) return false;
@@ -124,7 +131,7 @@ const server = http.createServer(async (req, res) => {
       const fecha = parsed.searchParams.get('fecha');
       if (!fecha || !isValidDate(fecha)) return sendJson(res, 400, { error: 'Fecha inválida. Formato YYYY-MM-DD' });
       const data = readReservas();
-      const slots = getAvailableStartHours().map((hour) => ({ hora: hour, disponible: isSlotAvailable(data.reservas, fecha, hour) }));
+      const slots = getBusinessHours().map((hour) => ({ hora: hour, disponible: isSlotAvailable(data.reservas, fecha, hour) }));
       return sendJson(res, 200, { fecha, slots });
     }
 
