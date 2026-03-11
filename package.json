@@ -1,0 +1,10 @@
+{
+  "name": "plazoleta-reservas",
+  "version": "1.0.0",
+  "description": "Sistema de reservas para salón con confirmación por WhatsApp",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  }
+}
